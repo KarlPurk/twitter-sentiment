@@ -1,7 +1,14 @@
+/*jslint node: true */
+"use strict";
+
 var express = require('express'),
+    Twit = require('twit'),
+    config = require('./config'),
     app = express(),
     server,
-    io;
+    io,
+    twitter = new Twit(config.twit),
+    twitterHelper = require('./lib/server/twitter-helper')(twitter);
 
 // Configure express app to use static file server
 app.use(express.static(__dirname + '/'));
@@ -18,7 +25,7 @@ server.listen(8080);
 io.sockets.on('connection', function (socket) {
 
     socket.on('filter', function(data) {
-        console.log('filter received: ' + data.track);
+        twitterHelper.createTweetStream(data.track);
     });
 
 });
