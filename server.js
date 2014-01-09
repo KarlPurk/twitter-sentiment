@@ -14,3 +14,11 @@ io = require('socket.io').listen(server);
 
 // Start the server
 server.listen(8080);
+
+io.sockets.on('connection', function (socket) {
+
+    socket.on('filter', function(data) {
+        console.log('filter received: ' + data.track);
+    });
+
+});

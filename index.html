@@ -14,7 +14,8 @@
 <body>
 <script src="/socket.io/socket.io.js"></script>
 <script type="application/javascript">
-    io.connect('http://localhost');
+    var socket = io.connect('http://localhost');
+    socket.emit('filter', { track: 'javascript' });
 </script>
 </body>
 </html>
