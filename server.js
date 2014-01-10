@@ -2,13 +2,10 @@
 "use strict";
 
 var express = require('express'),
-    Twit = require('twit'),
-    config = require('./config'),
     app = express(),
     server,
     io,
-    twitter = new Twit(config.twit),
-    twitterHelper = require('./lib/server/twitter-helper')(twitter);
+    twitterHelper = require('./lib/server/twitter-helper');
 
 // Configure express app to use static file server
 app.use(express.static(__dirname + '/'));
