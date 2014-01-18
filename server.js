@@ -22,7 +22,11 @@ server.listen(8080);
 io.sockets.on('connection', function (socket) {
 
     socket.on('filter', function(data) {
-        twitterHelper.createTweetStream(data.track);
+
+        // Use the twitter helper module to create a filtered
+        // twitter stream.  Pass in the socket, any received tweets
+        // will be emitted as a tweet event on the socket.
+        twitterHelper.createTweetStream(data.track, socket);
     });
 
 });
