@@ -12,10 +12,20 @@
     <![endif]-->
 </head>
 <body>
-<script src="/socket.io/socket.io.js"></script>
-<script type="application/javascript">
-    var socket = io.connect('http://localhost');
-    socket.emit('filter', { track: 'javascript' });
-</script>
+    <main>
+    </main>	
+	<script type="text/html" id="tweet-template">
+		<p><%= text %></p>
+		<small><%= user.screen_name %></small>
+	</script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/vendor/js/jquery.js"></script>
+	<script src="/vendor/js/underscore.min.js"></script>
+	<script src="/vendor/js/backbone.min.js"></script>
+	<script src="/vendor/js/backbone.marionette.min.js"></script>
+	<script src="/app/app.js"></script>
+	<script type="application/javascript">
+		app.start();
+	</script>
 </body>
 </html>
