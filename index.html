@@ -15,7 +15,9 @@
 </head>
 <body>
     <main>
-    </main>	
+        <div id="totals"></div>
+        <div id="tweets"></div>
+    </main>
 	<script type="text/html" id="tweets-template">
         <span class="title">Tweets</span>
 		<table class="table table-striped">
@@ -25,6 +27,17 @@
                 <th>Sentiment</th>
             </thead>
             <tbody></tbody>
+		</table>
+	</script>
+    <script type="text/html" id="total-tweets-template">
+        <span class="title">Total Tweets</span>
+		<table class="table table-striped">
+            <tbody>
+                <tr><th>Positive</th><td><%= positive %></td></tr>
+                <tr><th>Negative</th><td><%= negative %></td></tr>
+                <tr><th>Neutral</th><td><%= neutral %></td></tr>
+                <tr><th>Mixed</th><td><%= mixed %></td></tr>
+            </tbody>
 		</table>
 	</script>
     <script type="text/html" id="tweet-template">

@@ -1,13 +1,35 @@
 (function(global) {
+    "use strict";
 
     var app = new Marionette.Application();
 
-    app.addRegions({
-		main: 'main'
-    });
-
     app.module('tweets', function(tweetsModule, app) {
-		var tweets = new Backbone.Collection();
+        var getTotalsStrategies = {
+            default: function(collection) {
+                var totals = {
+                        positive: 0,
+                        negative: 0,
+                        neutral: 0,
+                        mixed: 0
+                    };
+
+                collection.forEach(function(tweet) {
+                    if (tweet.get('sentiment').mixed)  {
+                        totals['mixed']++;
+                        return;
+                    }
+                    totals[tweet.get('sentiment').type]++;
+                });
+
+                return totals;
+            }
+        };
+        var TweetsCollection = Backbone.Collection.extend({
+            getTotals: function(strategy) {
+                return getTotalsStrategies[strategy](this);
+            }
+        });
+		var tweets = new TweetsCollection();
         var TweetView = Marionette.ItemView.extend({
             tagName: 'tr',
 			template: "#tweet-template",
@@ -29,9 +51,17 @@
             itemView: TweetView,
             itemViewContainer: 'tbody'
 		});
-        var tweetsView = new TweetsView({
-			collection: tweets 
-		});
+        var TotalTweetsView = Marionette.ItemView.extend({
+            className: 'white-box',
+            template: '#total-tweets-template',
+            initialize: function() {
+                // Re-render the view when a model is added to the associated view collection
+                this.listenTo(this.collection, "add", this.render);
+            },
+            serializeData: function() {
+                return this.collection.getTotals('default');
+            }
+        });
         tweetsModule.addInitializer(function() {
             var socket = io.connect('http://localhost');
             socket.emit('filter', { track: 'javascript' });
@@ -44,9 +74,24 @@
             });
         });
         tweetsModule.addInitializer(function() {
-            app.getRegion('main').show(tweetsView);
+            var tweetsView = new TweetsView({
+                collection: tweets
+            });
+            app.getRegion('tweets').show(tweetsView);
+        });
+        tweetsModule.addInitializer(function() {
+            var totalTweetsView = new TotalTweetsView({
+                collection: tweets
+            });
+            app.getRegion('totals').show(totalTweetsView);
         });
     });
 
+    app.addRegions({
+        tweets: '#tweets',
+        totals: '#totals'
+    });
+
     global.app = app;
+
 })(window);
