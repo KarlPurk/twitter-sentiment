@@ -15,6 +15,7 @@ server = require('http').createServer(app);
 
 // Attach socket.io to the http server
 io = require('socket.io').listen(server);
+io.set('log level', 1);
 
 // Start the server
 server.listen(8080);
@@ -29,6 +30,10 @@ io.sockets.on('connection', function (socket) {
         twitterHelper.createTweetStream(data.track, socket);
     });
 
+    socket.on('disconnect', function() {
+        twitterHelper.stopTweetStream();
+    });
+
 });
 
-module.exports = io;
+module.exports = {io: io, server: server};
