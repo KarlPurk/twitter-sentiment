@@ -14,10 +14,14 @@
     <![endif]-->
 </head>
 <body>
+    <nav>
+    </nav>
     <main>
-        <div id="totals"></div>
-        <div id="tweets"></div>
     </main>
+	<script type="text/html" id="nav-template">
+        <li class="dashboard active"><a href="#">Dashboard</a></li>
+        <li class="explore"><a href="#">Explore</a></li>
+	</script>
 	<script type="text/html" id="tweets-template">
         <span class="title">Tweets</span>
 		<table class="table table-striped">
@@ -45,12 +49,25 @@
 		<td><%= text %></td>
 		<td><span class="label <%= getSentimentClass() %>"><%= sentiment.type %></span></td>
 	</script>
+    <!-- Pages -->
+    <script type="text/html" id="dashboard-template">
+        <div id="totals"></div>
+        <div id="tweets"></div>
+    </script>
+    <script type="text/html" id="explore-template">
+    </script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="/vendor/js/jquery.js"></script>
-	<script src="/vendor/js/underscore.min.js"></script>
-	<script src="/vendor/js/backbone.min.js"></script>
-	<script src="/vendor/js/backbone.marionette.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.2.1/backbone.marionette.js"></script>
 	<script src="/app/app.js"></script>
+	<script src="/app/modules/dashboard.js"></script>
+	<script src="/app/modules/explore.js"></script>
+	<script src="/app/modules/nav.js"></script>
+	<script src="/app/modules/total-strategies.js"></script>
+	<script src="/app/modules/totals.js"></script>
+	<script src="/app/modules/tweets.js"></script>
 	<script type="application/javascript">
 		window.app.start();
 	</script>

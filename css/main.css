@@ -1,16 +1,20 @@
+* {
+    font-family: arial, sans-serif;
+}
+
 .white-box {
     background-color: #ffffff;
     border: 1px solid #dddddd;
-    border-radius: 4px 4px 0 0;
+    border-radius: 0.5em 0.5em 0 0;
     position: relative;
-    padding: 45px 15px 15px;
-    margin: 30px 30px;
+    padding: 3em 1em 1em;
+    margin: 2em;
 }
 
 .white-box .title {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 1em;
+    left: 1em;
     font-size: 12px;
     font-weight: 700;
     color: #bbb;
@@ -27,3 +31,19 @@
     float: left;
     width: 80%;
 }
+
+nav {
+    margin: 2em 2em 0 2em;
+}
+
+.main-content {
+    opacity: 1;
+    overflow: hidden;
+    transition: opacity 0.25s ease;
+    -webkit-transition: opacity 0.25s ease;
+}
+
+.main-content.transition-hide {
+    opacity: 0;
+}
+
