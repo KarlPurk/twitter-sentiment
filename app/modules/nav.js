@@ -82,7 +82,7 @@
                      * Then remove the transition-hide class causing
                      * the view content to fade in
                      */
-                    app.execute('render-view', module, view);
+                    app.bus.command('render-view', module, view);
                     setTimeout(function() {
                         app.getRegion('main').currentView.$el.removeClass('transition-hide');
                     }, 1);

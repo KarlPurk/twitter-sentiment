@@ -2,9 +2,9 @@
 (function(app) {
     "use strict";
 
-    app.module('dashboard', function(dashboardModule) {
+    app.module('dashboard', function() {
 
-        dashboardModule.reqres = new Backbone.Wreqr.RequestResponse();
+        this.bus = _.extend({}, Backbone.Radio.Requests);
 
         //noinspection JSUnusedGlobalSymbols
         var DashboardView = Marionette.LayoutView.extend({
@@ -12,21 +12,24 @@
             className: 'main-content transition-hide',
             regions: {
                 totals: '#totals',
-                tweets: '#tweets'
+                tweets: '#tweets',
+                search: '#search'
             },
             onShow: function() {
-                var TotalsView = app.request('get-view', 'totals', 'totals'),
-                    TweetsView = app.request('get-view', 'tweets', 'tweets');
+                var TotalsView = app.bus.request('get-view', 'totals', 'totals'),
+                    TweetsView = app.bus.request('get-view', 'tweets', 'tweets'),
+                    SearchView = app.bus.request('get-view', 'search', 'search');
                 this.totals.show(new TotalsView({
-                    collection: app.request('get-tweets')
+                    collection: app.bus.request('get-tweets')
                 }));
                 this.tweets.show(new TweetsView({
-                    collection: app.request('get-tweets')
+                    collection: app.bus.request('get-tweets')
                 }));
+                this.search.show(new SearchView());
             }
         });
 
-        dashboardModule.reqres.setHandler('get-dashboard-view', function() {
+        this.bus.reply('get-dashboard-view', function() {
             return DashboardView;
         });
 

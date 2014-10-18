@@ -4,6 +4,10 @@
 
     var app = new Marionette.Application();
 
+    app.bus = _.extend({}, Backbone.Events);
+    app.bus = _.extend(app.bus, Backbone.Radio.Commands);
+    app.bus = _.extend(app.bus, Backbone.Radio.Requests);
+
     /**
      * Request-response handlers
      */
@@ -11,15 +15,15 @@
     /**
      * Gets a view object from a module
      */
-    app.reqres.setHandler('get-view', function (module, view) {
-        return app.module(module).reqres.request('get-' + view + '-view');
+    app.bus.reply('get-view', function (module, view) {
+        return app.module(module).bus.request('get-' + view + '-view');
     });
 
     /**
      * Renders a view object from a module to the "main" region
      */
-    app.commands.setHandler('render-view', function (module, view, spec) {
-        var View = app.request('get-view', module, view);
+    app.bus.comply('render-view', function (module, view, spec) {
+        var View = app.bus.request('get-view', module, view);
         app.getRegion('main').show(new View(spec || {}));
     });
 

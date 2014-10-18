@@ -2,9 +2,9 @@
 (function(app) {
     "use strict";
 
-    app.module('explore', function(exploreModule) {
+    app.module('explore', function() {
 
-        exploreModule.reqres = new Backbone.Wreqr.RequestResponse();
+        this.bus = _.extend({}, Backbone.Radio.Requests);
 
         var ExploreView = Marionette.LayoutView.extend({
             template: '#explore-template',
@@ -14,7 +14,7 @@
             }
         });
 
-        exploreModule.reqres.setHandler('get-explore-view', function() {
+        this.bus.reply('get-explore-view', function() {
             return ExploreView;
         });
 

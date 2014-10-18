@@ -2,9 +2,9 @@
 (function(app) {
     "use strict";
 
-    app.module('totals', function(totalsModule) {
+    app.module('totals', function() {
 
-        totalsModule.reqres = new Backbone.Wreqr.RequestResponse();
+        this.bus = _.extend({}, Backbone.Radio.Requests);
 
         var TotalsView = Marionette.ItemView.extend({
             className: 'white-box',
@@ -17,7 +17,7 @@
             }
         });
 
-        totalsModule.reqres.setHandler('get-totals-view', function() {
+        this.bus.reply('get-totals-view', function() {
             return TotalsView;
         });
 

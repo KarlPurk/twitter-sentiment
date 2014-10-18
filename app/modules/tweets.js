@@ -4,7 +4,7 @@
 
     app.module('tweets', function(tweetsModule, app) {
 
-        tweetsModule.reqres = new Backbone.Wreqr.RequestResponse();
+        this.bus = _.extend({}, Backbone.Radio.Requests);
 
         var TweetsCollection = Backbone.Collection.extend({
             getTotals: function(strategy) {
@@ -56,11 +56,11 @@
             });
         });
 
-        app.reqres.setHandler('get-tweets', function() {
+        app.bus.reply('get-tweets', function() {
             return tweets;
         });
 
-        tweetsModule.reqres.setHandler('get-tweets-view', function() {
+        this.bus.reply('get-tweets-view', function() {
             return TweetsView;
         });
 
