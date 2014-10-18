@@ -1,8 +1,8 @@
-/* global Backbone, Marionette */
+/* global app, Backbone, Marionette, $, _ */
 (function(app) {
     "use strict";
 
-    app.module('total-strategies', function() {
+    app.module('total-strategies', function(strategiesModule, app) {
 
         var strategies = {
             sentiment: function(collection) {

@@ -1,8 +1,8 @@
-/* global Backbone, Marionette */
+/* global app, Backbone, Marionette, $, _ */
 (function(app) {
     "use strict";
 
-    app.module('dashboard', function() {
+    app.module('dashboard', function(dashboardModule, app, Backbone, Marionette, $, _) {
 
         this.bus = _.extend({}, Backbone.Radio.Requests);
 

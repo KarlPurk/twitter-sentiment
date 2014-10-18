@@ -1,8 +1,8 @@
-/* global Backbone, Marionette */
+/* global app, Backbone, Marionette, $, _ */
 (function(app) {
     "use strict";
 
-    app.module('nav', function(navModule) {
+    app.module('nav', function(navModule, app, Backbone, Marionette, $, _) {
 
         var items = [
             {

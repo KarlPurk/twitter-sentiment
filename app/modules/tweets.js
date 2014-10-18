@@ -1,8 +1,8 @@
-/* global Backbone, io, Marionette */
+/* global app, Backbone, Marionette, $, _, io */
 (function(app) {
     "use strict";
 
-    app.module('tweets', function(tweetsModule, app) {
+    app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
 
         this.bus = _.extend({}, Backbone.Radio.Requests);
 
