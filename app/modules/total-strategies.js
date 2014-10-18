@@ -15,7 +15,6 @@
                 collection.forEach(function(tweet) {
                     if (tweet.get('sentiment').mixed)  {
                         totals.mixed++;
-                        return;
                     }
                     totals[tweet.get('sentiment').type]++;
                 });

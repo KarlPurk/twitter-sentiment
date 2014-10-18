@@ -19,8 +19,9 @@
     <main>
     </main>
 	<script type="text/html" id="nav-template">
-        <li class="dashboard active"><a href="#">Dashboard</a></li>
-        <li class="explore"><a href="#">Explore</a></li>
+	</script>
+    <script type="text/html" id="nav-item-template">
+        <a href="#"><%= label %></a>
 	</script>
 	<script type="text/html" id="tweets-template">
         <span class="title">Tweets</span>
@@ -47,7 +48,7 @@
     <script type="text/html" id="tweet-template">
         <td><%= user.screen_name %></td>
 		<td><%= text %></td>
-		<td><span class="label <%= getSentimentClass() %>"><%= sentiment.type %></span></td>
+		<td><span class="label <%= getSentimentClass() %>"><%= getSentimentLabel() %></span></td>
 	</script>
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">

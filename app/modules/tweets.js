@@ -21,13 +21,22 @@
             template: "#tweet-template",
             templateHelpers: {
                 getSentimentClass: function() {
-                    if (this.sentiment.type === 'positive') {
+                    if (this.sentiment.mixed) {
+                        return 'label-warning';
+                    }
+                    else if (this.sentiment.type === 'positive') {
                         return 'label-success';
                     }
                     else if (this.sentiment.type === 'negative') {
                         return 'label-danger';
                     }
                     return 'label-info';
+                },
+                getSentimentLabel: function() {
+                    if (this.sentiment.mixed) {
+                        return 'mixed';
+                    }
+                    return this.sentiment.type;
                 }
             }
         });
