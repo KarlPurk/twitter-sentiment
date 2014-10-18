@@ -47,7 +47,8 @@
                     class: getClassName(this.model)
                 };
             },
-            onClick: function() {
+            onClick: function(event) {
+                event.preventDefault();
                 this.model.set('active', true);
             },
             refreshAttributes: function() {
