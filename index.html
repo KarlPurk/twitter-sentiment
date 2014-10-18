@@ -16,7 +16,7 @@
 <body>
     <nav>
     </nav>
-    <main>
+    <main class="container-fluid">
     </main>
 	<script type="text/html" id="nav-template">
 	</script>
@@ -52,8 +52,10 @@
 	</script>
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">
-        <div id="totals"></div>
-        <div id="tweets"></div>
+        <div class="row">
+            <div class="col-md-3" id="totals"></div>
+            <div class="col-md-9" id="tweets"></div>
+        </div>
     </script>
     <script type="text/html" id="explore-template">
     </script>

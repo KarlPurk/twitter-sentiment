@@ -22,16 +22,6 @@
     letter-spacing: 1px;
 }
 
-#totals {
-    float: left;
-    width: 20%;
-}
-
-#tweets {
-    float: left;
-    width: 80%;
-}
-
 nav {
     margin: 2em 2em 0 2em;
 }
