@@ -27,6 +27,15 @@
         app.getRegion('main').show(new View(spec || {}));
     });
 
+    app.bus.on('search', function(query) {
+        var tweets = app.bus.request('get-tweets');
+        var socket = io.connect('http://localhost');
+        socket.emit('filter', { track: query });
+        socket.on("tweet", function(tweet) {
+            tweets.add(tweet);
+        });
+    });
+
     /**
      * App initializers
      */

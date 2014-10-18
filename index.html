@@ -23,6 +23,16 @@
     <script type="text/html" id="nav-item-template">
         <a href="#"><%= label %></a>
 	</script>
+    <script type="text/html" id="search-template">
+        <span class="title">Search</span>
+        <form>
+            <input type="text" placeholder="Search term..." />
+            <button>Search</button>
+        </form>
+        <p>
+            Searching for tweets containing: <span class="search-keyword  label  label-success"><%= query %></span>
+        </p>
+    </script>
 	<script type="text/html" id="tweets-template">
         <span class="title">Tweets</span>
 		<table class="table table-striped">
@@ -53,7 +63,10 @@
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">
         <div class="row">
-            <div class="col-md-3" id="totals"></div>
+            <div class="col-md-3">
+                <div id="search"></div>
+                <div id="totals"></div>
+            </div>
             <div class="col-md-9" id="tweets"></div>
         </div>
     </script>
@@ -64,6 +77,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.2.1/backbone.marionette.js"></script>
+	<script src="/vendor/js/backbone.radio.js"></script>
 	<script src="/app/app.js"></script>
 	<script src="/app/modules/dashboard.js"></script>
 	<script src="/app/modules/explore.js"></script>
@@ -71,6 +85,7 @@
 	<script src="/app/modules/total-strategies.js"></script>
 	<script src="/app/modules/totals.js"></script>
 	<script src="/app/modules/tweets.js"></script>
+	<script src="/app/modules/search.js"></script>
 	<script type="application/javascript">
 		window.app.start();
 	</script>

@@ -15,7 +15,6 @@
     position: absolute;
     top: 1em;
     left: 1em;
-    font-size: 12px;
     font-weight: 700;
     color: #bbb;
     text-transform: uppercase;
@@ -45,4 +44,8 @@ nav {
 .search-container input {
     padding: 0.5em;
     width: 76%;
+}
+
+.label   {
+    font-size: 1em;
 }

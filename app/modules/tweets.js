@@ -48,14 +48,6 @@
             childViewContainer: 'tbody'
         });
 
-        tweetsModule.addInitializer(function() {
-            var socket = io.connect('http://localhost');
-            socket.emit('filter', { track: 'javascript' });
-            socket.on("tweet", function(tweet) {
-                tweets.add(tweet);
-            });
-        });
-
         app.bus.reply('get-tweets', function() {
             return tweets;
         });
