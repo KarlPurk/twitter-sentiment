@@ -32,8 +32,12 @@
             Searching for tweets containing: <span class="search-keyword  label  label-success"><%= query %></span>
         </p>
     </script>
-	<script type="text/html" id="tweets-template">
+    <script type="text/html" id="tweets-layout-template">
         <span class="title">Tweets</span>
+        <div class="options"></div>
+        <div class="tweets"></div>
+    </script>
+	<script type="text/html" id="tweets-template">
 		<table class="table table-striped">
             <thead>
                 <th>User</th>
@@ -43,6 +47,17 @@
             <tbody></tbody>
 		</table>
 	</script>
+    <script type="text/html" id="tweet-template">
+        <td><%= user.screen_name %></td>
+        <td><%= text %></td>
+        <td><span class="label <%= getSentimentClass() %>"><%= getSentimentLabel() %></span></td>
+    </script>
+    <script type="text/html" id="tweet-filters-template">
+    </script>
+    <script type="text/html" id="tweet-filter-template">
+        <%= count %>
+        <%= name %>
+    </script>
     <script type="text/html" id="total-tweets-template">
         <span class="title">Total Tweets</span>
 		<table class="table table-striped">
@@ -53,11 +68,6 @@
                 <tr><th>Mixed</th><td><%= mixed %></td></tr>
             </tbody>
 		</table>
-	</script>
-    <script type="text/html" id="tweet-template">
-        <td><%= user.screen_name %></td>
-		<td><%= text %></td>
-		<td><span class="label <%= getSentimentClass() %>"><%= getSentimentLabel() %></span></td>
 	</script>
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">
@@ -84,6 +94,7 @@
 	<script src="/app/modules/total-strategies.js"></script>
 	<script src="/app/modules/totals.js"></script>
 	<script src="/app/modules/tweets.js"></script>
+	<script src="/app/modules/tweet-filters.js"></script>
 	<script src="/app/modules/search.js"></script>
 	<script type="application/javascript">
 		window.app.start();
