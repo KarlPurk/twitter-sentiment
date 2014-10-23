@@ -16,7 +16,7 @@
      * Gets a view object from a module
      */
     app.bus.reply('get-view', function (module, view) {
-        return app.module(module).bus.request('get-' + view + '-view');
+        return app.bus.request('get-' + view + '-view');
     });
 
     /**

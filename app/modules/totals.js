@@ -4,8 +4,6 @@
 
     app.module('totals', function(totalsModule, app, Backbone, Marionette, $, _) {
 
-        this.bus = _.extend({}, Backbone.Radio.Requests);
-
         var TotalsView = Marionette.ItemView.extend({
             className: 'white-box',
             template: '#total-tweets-template',
@@ -17,7 +15,7 @@
             }
         });
 
-        this.bus.reply('get-totals-view', function() {
+        app.bus.reply('get-totals-view', function() {
             return TotalsView;
         });
 

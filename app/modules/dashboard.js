@@ -4,8 +4,6 @@
 
     app.module('dashboard', function(dashboardModule, app, Backbone, Marionette, $, _) {
 
-        this.bus = _.extend({}, Backbone.Radio.Requests);
-
         //noinspection JSUnusedGlobalSymbols
         var DashboardView = Marionette.LayoutView.extend({
             template: '#dashboard-template',
@@ -29,7 +27,7 @@
             }
         });
 
-        this.bus.reply('get-dashboard-view', function() {
+        app.bus.reply('get-dashboard-view', function() {
             return DashboardView;
         });
 

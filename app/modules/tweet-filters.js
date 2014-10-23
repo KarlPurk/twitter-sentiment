@@ -8,7 +8,7 @@
          * Dependencies
          ***********************************************************/
 
-        var tweets = this.bus.request('get-tweets');
+        var tweets = app.bus.request('get-tweets');
 
         /***********************************************************
          * Models
@@ -89,19 +89,15 @@
         });
 
         /***********************************************************
-         * Module bus
-         ***********************************************************/
-
-        this.bus.reply('get-tweet-filters-view', function() {
-            return FiltersView;
-        });
-
-        /***********************************************************
-         * App bus
+         * Public interface
          ***********************************************************/
 
         app.bus.reply('get-filtered-tweets', function() {
             return filteredTweets;
+        });
+
+        app.bus.reply('get-tweet-filters-view', function() {
+            return FiltersView;
         });
 
         /***********************************************************

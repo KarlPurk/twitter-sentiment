@@ -4,9 +4,6 @@
 
     app.module('search', function(searchModule, app, Backbone, Marionette, $, _) {
 
-        this.bus = _.extend({}, Backbone.Events);
-        this.bus = _.extend(this.bus, Backbone.Radio.Requests);
-
         var SearchView = Marionette.ItemView.extend({
             className: 'search-container  white-box',
             template: '#search-template',
@@ -34,15 +31,11 @@
                 this.render();
                 this.ui.form.hide();
                 this.ui.message.show();
-                searchModule.bus.trigger('search', this.searchQuery);
+                app.bus.trigger('search', this.searchQuery);
             }
         });
 
-        this.bus.on('search', function(query) {
-            app.bus.trigger('search', query);
-        });
-
-        this.bus.reply('get-search-view', function() {
+        app.bus.reply('get-search-view', function() {
             return SearchView;
         });
 
