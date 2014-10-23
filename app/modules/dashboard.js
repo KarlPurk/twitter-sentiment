@@ -20,10 +20,10 @@
                     TweetsView = app.bus.request('get-view', 'tweets', 'tweets'),
                     SearchView = app.bus.request('get-view', 'search', 'search');
                 this.totals.show(new TotalsView({
-                    collection: app.bus.request('get-tweets')
+                    collection: app.bus.request('get-filtered-tweets')
                 }));
                 this.tweets.show(new TweetsView({
-                    collection: app.bus.request('get-tweets')
+                    collection: app.bus.request('get-filtered-tweets')
                 }));
                 this.search.show(new SearchView());
             }

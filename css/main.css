@@ -21,6 +21,16 @@
     letter-spacing: 1px;
 }
 
+.white-box .options {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-weight: 700;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 nav {
     margin: 1em 0 0 3.1em;
 }
@@ -48,4 +58,8 @@ nav {
 
 .label   {
     font-size: 1em;
+}
+
+.tweet-filter {
+    margin-left: 1em;
 }

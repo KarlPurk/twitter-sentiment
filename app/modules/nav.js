@@ -53,7 +53,7 @@
             },
             refreshAttributes: function() {
                 this.$el.attr(this.attributes());
-                }
+            }
         });
 
         var NavView = Marionette.CompositeView.extend({

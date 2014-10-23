@@ -10,7 +10,7 @@
             className: 'white-box',
             template: '#total-tweets-template',
             initialize: function() {
-                this.listenTo(this.collection, "add", this.render);
+                this.listenTo(this.collection, "reset", this.render);
             },
             serializeData: function() {
                 return this.collection.getTotals();
@@ -22,5 +22,8 @@
         });
 
     });
+
+
+
 
 })(window.app);
