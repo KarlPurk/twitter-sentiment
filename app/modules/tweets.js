@@ -4,9 +4,6 @@
 
     app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
 
-        this.bus = _.extend({}, Backbone.Events);
-        this.bus = _.extend(this.bus, Backbone.Radio.Requests);
-
         var TweetModel = Backbone.Model.extend({
             getSentimentLabel: function() {
                 if (this.get('sentiment').mixed) {
@@ -20,7 +17,7 @@
             model: TweetModel,
             getTotals: function(strategy) {
                 strategy = strategy || 'sentiment';
-                return app.reqres.request('get-total-strategy', strategy)(this);
+                return app.bus.request('get-total-strategy', strategy)(this);
             }
         });
 
@@ -76,13 +73,13 @@
                     collection: this.collection
                 }));
 
-                var FiltersView = tweetsModule.bus.request('get-tweet-filters-view');
+                var FiltersView = app.bus.request('get-tweet-filters-view');
 
                 this.getRegion('filters').show(new FiltersView());
             }
         });
 
-        this.bus.reply('get-tweets', function() {
+        app.bus.reply('get-tweets', function() {
             return tweets;
         });
 
@@ -90,7 +87,7 @@
             return tweets;
         });
 
-        this.bus.reply('get-tweets-view', function() {
+        app.bus.reply('get-tweets-view', function() {
             return LayoutView;
         });
 

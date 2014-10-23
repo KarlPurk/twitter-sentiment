@@ -29,7 +29,7 @@
             }
         };
 
-        app.reqres.setHandler('get-total-strategy', function(strategy) {
+        app.bus.reply('get-total-strategy', function(strategy) {
             return strategies[strategy];
         });
 
