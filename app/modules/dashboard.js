@@ -9,17 +9,15 @@
             template: '#dashboard-template',
             className: 'main-content transition-hide',
             regions: {
-                totals: '#totals',
+                sentiments: '#sentiments',
                 tweets: '#tweets',
                 search: '#search'
             },
             onShow: function() {
-                var TotalsView = app.bus.request('get-view', 'totals', 'totals'),
+                var SentimentsView = app.bus.request('get-view', 'sentiments', 'sentiments'),
                     TweetsView = app.bus.request('get-view', 'tweets', 'tweets'),
                     SearchView = app.bus.request('get-view', 'search', 'search');
-                this.totals.show(new TotalsView({
-                    collection: app.bus.request('get-filtered-tweets')
-                }));
+                this.sentiments.show(new SentimentsView());
                 this.tweets.show(new TweetsView({
                     collection: app.bus.request('get-filtered-tweets')
                 }));

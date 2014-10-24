@@ -9,6 +9,7 @@
          ***********************************************************/
 
         var tweets = app.bus.request('get-tweets');
+        var sentiments = app.bus.request('get-sentiments');
 
         /***********************************************************
          * Models
@@ -89,31 +90,8 @@
         });
 
         /***********************************************************
-         * Public interface
-         ***********************************************************/
-
-        app.bus.reply('get-filtered-tweets', function() {
-            return filteredTweets;
-        });
-
-        app.bus.reply('get-tweet-filters-view', function() {
-            return FiltersView;
-        });
-
-        /***********************************************************
          * Util methods
          ***********************************************************/
-
-        var convertTotalsToObjects = function(totals) {
-            return Object.keys(totals).reduce(function(last, cur) {
-                var obj = {
-                    name: cur,
-                    count: totals[cur]
-                };
-                last.push(obj);
-                return last;
-            }, []);
-        };
 
         var updateFilteredTweets = function() {
             var activeFilters = filters.filter(function(model) {
@@ -128,38 +106,34 @@
             filteredTweets.reset(result);
         };
 
-        /**
-         * Logic
-         */
+        /***********************************************************
+         * Event handlers
+         ***********************************************************/
 
-        var updateFilteredTweetsWhenNewTweetAdded = function() {
-            tweets.on('add', function() {
-                var updates = convertTotalsToObjects(tweets.getTotals());
-                updates.forEach(function(total) {
-                    var filter = filters.findWhere({name: total.name});
-                    if (filter) {
-                        filter.set('count', total.count);
-                        return;
-                    }
-                    filters.add(total);
-                });
-                updateFilteredTweets();
-            });
-        };
+        filters.on('change', function() {
+            updateFilteredTweets();
+        });
 
-        var updateFilteredTweetsWhenFiltersChange = function() {
-            filters.on('change', function() {
-                updateFilteredTweets();
-            });
-        };
+        sentiments.on('add', function(sentiment) {
+            filters.add(sentiment.toJSON());
+            updateFilteredTweets();
+        });
 
-        /**
-         * Module initialisers
-         */
+        sentiments.on('change:count', function(sentiment) {
+            filters.findWhere({name: sentiment.get('name')}).set('count', sentiment.get('count'));
+            updateFilteredTweets();
+        });
 
-        this.addInitializer(function() {
-            updateFilteredTweetsWhenNewTweetAdded();
-            updateFilteredTweetsWhenFiltersChange();
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
+
+        app.bus.reply('get-filtered-tweets', function() {
+            return filteredTweets;
+        });
+
+        app.bus.reply('get-tweet-filters-view', function() {
+            return FiltersView;
         });
 
     });

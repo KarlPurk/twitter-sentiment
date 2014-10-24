@@ -14,11 +14,7 @@
         });
 
         this.TweetsCollection = Backbone.Collection.extend({
-            model: TweetModel,
-            getTotals: function(strategy) {
-                strategy = strategy || 'sentiment';
-                return app.bus.request('get-total-strategy', strategy)(this);
-            }
+            model: TweetModel
         });
 
         var tweets = new this.TweetsCollection();
@@ -77,6 +73,10 @@
 
                 this.getRegion('filters').show(new FiltersView());
             }
+        });
+
+        app.bus.on('tweet', function(tweet) {
+            tweets.add(tweet);
         });
 
         app.bus.reply('get-tweets', function() {
