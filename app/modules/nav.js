@@ -4,6 +4,10 @@
 
     app.module('nav', function(navModule, app, Backbone, Marionette, $, _) {
 
+        /***********************************************************
+         * Configuration
+         ***********************************************************/
+
         var items = [
             {
                 name: 'dashboard',
@@ -16,11 +20,19 @@
             }
         ];
 
+        /***********************************************************
+         * Models
+         ***********************************************************/
+
         var NavItem = Backbone.Model.extend({
             defaults: {
                 active: false
             }
         });
+
+        /***********************************************************
+         * Collections
+         ***********************************************************/
 
         var NavItemCollection = Backbone.Collection.extend({
             model: NavItem,
@@ -32,6 +44,10 @@
                 _.invoke(items, 'set', 'active', false);
             }
         });
+
+        /***********************************************************
+         * Views
+         ***********************************************************/
 
         var NavItemView = Marionette.ItemView.extend({
             tagName: 'li',
@@ -104,6 +120,10 @@
                 showView(module, view);
             }
         });
+
+        /***********************************************************
+         * Module initializers
+         ***********************************************************/
 
         navModule.addInitializer(function() {
             var collection = new NavItemCollection();

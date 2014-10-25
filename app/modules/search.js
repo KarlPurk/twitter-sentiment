@@ -4,6 +4,9 @@
 
     app.module('search', function(searchModule, app, Backbone, Marionette, $, _) {
 
+        /***********************************************************
+         * Views
+         ***********************************************************/
         var SearchView = Marionette.ItemView.extend({
             className: 'search-container  white-box',
             template: '#search-template',
@@ -35,11 +38,13 @@
             }
         });
 
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
+
         app.bus.reply('get-search-view', function() {
             return SearchView;
         });
-
-
 
     });
 

@@ -4,13 +4,17 @@
 
     var app = new Marionette.Application();
 
+    /***********************************************************
+     * System bus creation
+     ***********************************************************/
+
     app.bus = _.extend({}, Backbone.Events);
     app.bus = _.extend(app.bus, Backbone.Radio.Commands);
     app.bus = _.extend(app.bus, Backbone.Radio.Requests);
 
-    /**
-     * Request-response handlers
-     */
+    /***********************************************************
+     * System bus usage
+     ***********************************************************/
 
     /**
      * Gets a view object from a module
@@ -27,14 +31,21 @@
         app.getRegion('main').show(new View(spec || {}));
     });
 
+    /***********************************************************
+     * Event handlers
+     ***********************************************************/
+
     app.bus.on('search', function(query) {
-        var tweets = app.bus.request('get-tweets');
         var socket = io.connect('http://localhost');
         socket.emit('filter', { track: query });
         socket.on("tweet", function(tweet) {
-            tweets.add(tweet);
+            app.bus.trigger('tweet', tweet);
         });
     });
+
+    /***********************************************************
+     * Application initializers
+     ***********************************************************/
 
     /**
      * App initializers
@@ -44,9 +55,10 @@
         app.addRegions({main: 'main'});
     });
 
-    /**
+    /***********************************************************
      * Global pollution
-     */
+     ***********************************************************/
+
     global.app = app;
 
 })(window);

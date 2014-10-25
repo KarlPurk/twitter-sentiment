@@ -58,23 +58,21 @@
         <%= count %>
         <%= name %>
     </script>
-    <script type="text/html" id="total-tweets-template">
-        <span class="title">Total Tweets</span>
+    <script type="text/html" id="sentiments-template">
+        <span class="title">Number of Tweets by Sentiment</span>
 		<table class="table table-striped">
-            <tbody>
-                <tr><th>Positive</th><td><%= positive %></td></tr>
-                <tr><th>Negative</th><td><%= negative %></td></tr>
-                <tr><th>Neutral</th><td><%= neutral %></td></tr>
-                <tr><th>Mixed</th><td><%= mixed %></td></tr>
-            </tbody>
+            <tbody></tbody>
 		</table>
+	</script>
+    <script type="text/html" id="sentiment-template">
+        <th><%= name %></th><td><%= count %></td>
 	</script>
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">
         <div class="row">
             <div class="col-md-3">
                 <div id="search"></div>
-                <div id="totals"></div>
+                <div id="sentiments"></div>
             </div>
             <div class="col-md-9" id="tweets"></div>
         </div>
@@ -91,10 +89,9 @@
 	<script src="/app/modules/dashboard.js"></script>
 	<script src="/app/modules/explore.js"></script>
 	<script src="/app/modules/nav.js"></script>
-	<script src="/app/modules/total-strategies.js"></script>
-	<script src="/app/modules/totals.js"></script>
+	<script src="/app/modules/sentiments.js"></script>
 	<script src="/app/modules/tweets.js"></script>
-	<script src="/app/modules/tweet-filters.js"></script>
+	<script src="/app/modules/filters.js"></script>
 	<script src="/app/modules/search.js"></script>
 	<script type="application/javascript">
 		window.app.start();

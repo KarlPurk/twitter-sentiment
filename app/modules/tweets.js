@@ -4,6 +4,10 @@
 
     app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
 
+        /***********************************************************
+         * Models
+         ***********************************************************/
+
         var TweetModel = Backbone.Model.extend({
             getSentimentLabel: function() {
                 if (this.get('sentiment').mixed) {
@@ -13,15 +17,19 @@
             }
         });
 
+        /***********************************************************
+         * Collections
+         ***********************************************************/
+
         this.TweetsCollection = Backbone.Collection.extend({
-            model: TweetModel,
-            getTotals: function(strategy) {
-                strategy = strategy || 'sentiment';
-                return app.bus.request('get-total-strategy', strategy)(this);
-            }
+            model: TweetModel
         });
 
         var tweets = new this.TweetsCollection();
+
+        /***********************************************************
+         * Views
+         ***********************************************************/
 
         //noinspection JSUnusedGlobalSymbols
         var TweetView = Marionette.ItemView.extend({
@@ -79,9 +87,17 @@
             }
         });
 
-        app.bus.reply('get-tweets', function() {
-            return tweets;
+        /***********************************************************
+         * Event handlers
+         ***********************************************************/
+
+        app.bus.on('tweet', function(tweet) {
+            tweets.add(tweet);
         });
+
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
 
         app.bus.reply('get-tweets', function() {
             return tweets;
