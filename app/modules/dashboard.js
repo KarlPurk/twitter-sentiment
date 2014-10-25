@@ -4,6 +4,10 @@
 
     app.module('dashboard', function(dashboardModule, app, Backbone, Marionette, $, _) {
 
+        /***********************************************************
+         * Views
+         ***********************************************************/
+
         //noinspection JSUnusedGlobalSymbols
         var DashboardView = Marionette.LayoutView.extend({
             template: '#dashboard-template',
@@ -24,6 +28,10 @@
                 this.search.show(new SearchView());
             }
         });
+
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
 
         app.bus.reply('get-dashboard-view', function() {
             return DashboardView;

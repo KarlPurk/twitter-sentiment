@@ -2,7 +2,8 @@
 (function(app) {
     "use strict";
 
-    app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
+    // TODO: move this to it's own module
+    app.module('tweets', function(filtersModule, app, Backbone, Marionette, $, _) {
 
         /***********************************************************
          * Dependencies

@@ -4,6 +4,10 @@
 
     app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
 
+        /***********************************************************
+         * Models
+         ***********************************************************/
+
         var TweetModel = Backbone.Model.extend({
             getSentimentLabel: function() {
                 if (this.get('sentiment').mixed) {
@@ -13,11 +17,19 @@
             }
         });
 
+        /***********************************************************
+         * Collections
+         ***********************************************************/
+
         this.TweetsCollection = Backbone.Collection.extend({
             model: TweetModel
         });
 
         var tweets = new this.TweetsCollection();
+
+        /***********************************************************
+         * Views
+         ***********************************************************/
 
         //noinspection JSUnusedGlobalSymbols
         var TweetView = Marionette.ItemView.extend({
@@ -75,13 +87,17 @@
             }
         });
 
+        /***********************************************************
+         * Event handlers
+         ***********************************************************/
+
         app.bus.on('tweet', function(tweet) {
             tweets.add(tweet);
         });
 
-        app.bus.reply('get-tweets', function() {
-            return tweets;
-        });
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
 
         app.bus.reply('get-tweets', function() {
             return tweets;
