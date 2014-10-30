@@ -6,15 +6,29 @@
 
         this.bus = _.extend({}, Backbone.Radio.Requests);
 
+        /***********************************************************
+         * Views
+         ***********************************************************/
+
         var ExploreView = Marionette.LayoutView.extend({
             template: '#explore-template',
             className: 'main-content transition-hide',
             regions: {
                 tweets: '#tweets'
+            },
+            onShow: function() {
+                var TweetsView = app.bus.request('get-view', 'tweets', 'tweets');
+                this.tweets.show(new TweetsView({
+                    collection: app.bus.request('get-filtered-tweets')
+                }));
             }
         });
 
-        this.bus.reply('get-explore-view', function() {
+        /***********************************************************
+         * Public interface
+         ***********************************************************/
+
+        app.bus.reply('get-explore-view', function() {
             return ExploreView;
         });
 

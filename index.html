@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,23 +68,31 @@
     <script type="text/html" id="sentiment-template">
         <th><%= name %></th><td><%= count %></td>
 	</script>
+    <script type="text/html" id="gauge-template">
+        <span class="title">Sentiment</span>
+        <div id="chart"></div>
+	</script>
     <!-- Pages -->
     <script type="text/html" id="dashboard-template">
         <div class="row">
             <div class="col-md-3">
                 <div id="search"></div>
                 <div id="sentiments"></div>
+                <div id="gauge"></div>
             </div>
             <div class="col-md-9" id="tweets"></div>
         </div>
     </script>
     <script type="text/html" id="explore-template">
+        <div class="col-md-12" id="tweets"></div>
     </script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.2.1/backbone.marionette.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>
 	<script src="/vendor/js/backbone.radio.js"></script>
 	<script src="/app/app.js"></script>
 	<script src="/app/modules/dashboard.js"></script>
@@ -93,6 +102,7 @@
 	<script src="/app/modules/tweets.js"></script>
 	<script src="/app/modules/filters.js"></script>
 	<script src="/app/modules/search.js"></script>
+	<script src="/app/modules/gauge.js"></script>
 	<script type="application/javascript">
 		window.app.start();
 	</script>

@@ -59,7 +59,7 @@
                 positive: 'label-success',
                 negative: 'label-danger',
                 mixed: 'label-warning',
-                neutral: 'label-default'
+                neutral: 'label-info'
             },
             attributes: function() {
                 return {
