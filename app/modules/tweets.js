@@ -1,112 +1,109 @@
-/* global app, Backbone, Marionette, $, _, io */
-(function(app) {
-    "use strict";
+/* global require */
 
-    app.module('tweets', function(tweetsModule, app, Backbone, Marionette, $, _) {
+var app = require('./../app');
+var _ = require('underscore');
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 
-        /***********************************************************
-         * Models
-         ***********************************************************/
+/***********************************************************
+ * Models
+ ***********************************************************/
 
-        var TweetModel = Backbone.Model.extend({
-            getSentimentLabel: function() {
-                if (this.get('sentiment').mixed) {
-                    return 'mixed';
-                }
-                return this.get('sentiment').type;
+var TweetModel = Backbone.Model.extend({
+    getSentimentLabel: function() {
+        if (this.get('sentiment').mixed) {
+            return 'mixed';
+        }
+        return this.get('sentiment').type;
+    }
+});
+
+/***********************************************************
+ * Collections
+ ***********************************************************/
+
+var TweetsCollection = Backbone.Collection.extend({
+    model: TweetModel
+});
+
+var tweets = new TweetsCollection();
+
+/***********************************************************
+ * Views
+ ***********************************************************/
+
+//noinspection JSUnusedGlobalSymbols
+var TweetView = Marionette.ItemView.extend({
+    tagName: 'tr',
+    template: "#tweet-template",
+    templateHelpers: {
+        getSentimentClass: function() {
+            if (this.sentiment.mixed) {
+                return 'label-warning';
             }
-        });
-
-        /***********************************************************
-         * Collections
-         ***********************************************************/
-
-        this.TweetsCollection = Backbone.Collection.extend({
-            model: TweetModel
-        });
-
-        var tweets = new this.TweetsCollection();
-
-        /***********************************************************
-         * Views
-         ***********************************************************/
-
-        //noinspection JSUnusedGlobalSymbols
-        var TweetView = Marionette.ItemView.extend({
-            tagName: 'tr',
-            template: "#tweet-template",
-            templateHelpers: {
-                getSentimentClass: function() {
-                    if (this.sentiment.mixed) {
-                        return 'label-warning';
-                    }
-                    else if (this.sentiment.type === 'positive') {
-                        return 'label-success';
-                    }
-                    else if (this.sentiment.type === 'negative') {
-                        return 'label-danger';
-                    }
-                    return 'label-info';
-                },
-                getSentimentLabel: function() {
-                    if (this.sentiment.mixed) {
-                        return 'mixed';
-                    }
-                    return this.sentiment.type;
-                }
+            else if (this.sentiment.type === 'positive') {
+                return 'label-success';
             }
-        });
-
-        var TweetsView = Marionette.CompositeView.extend({
-            template: "#tweets-template",
-            childView: TweetView,
-            childViewContainer: 'tbody',
-            collectionEvents: {
-                'reset': 'onReset'
-            },
-            onReset: function () {
-                this.render();
+            else if (this.sentiment.type === 'negative') {
+                return 'label-danger';
             }
-        });
-
-        var LayoutView = Marionette.LayoutView.extend({
-            template: '#tweets-layout-template',
-            className: 'main-content white-box',
-            regions: {
-                filters: '.options',
-                tweets: '.tweets'
-            },
-            onShow: function() {
-                this.getRegion('tweets').show(new TweetsView({
-                    collection: this.collection
-                }));
-
-                var FiltersView = app.bus.request('get-tweet-filters-view');
-
-                this.getRegion('filters').show(new FiltersView());
+            return 'label-info';
+        },
+        getSentimentLabel: function() {
+            if (this.sentiment.mixed) {
+                return 'mixed';
             }
-        });
+            return this.sentiment.type;
+        }
+    }
+});
 
-        /***********************************************************
-         * Event handlers
-         ***********************************************************/
+var TweetsView = Marionette.CompositeView.extend({
+    template: "#tweets-template",
+    childView: TweetView,
+    childViewContainer: 'tbody',
+    collectionEvents: {
+        'reset': 'onReset'
+    },
+    onReset: function () {
+        this.render();
+    }
+});
 
-        app.bus.on('tweet', function(tweet) {
-            tweets.add(tweet);
-        });
+var LayoutView = Marionette.LayoutView.extend({
+    template: '#tweets-layout-template',
+    className: 'main-content white-box',
+    regions: {
+        filters: '.options',
+        tweets: '.tweets'
+    },
+    onShow: function() {
+        this.getRegion('tweets').show(new TweetsView({
+            collection: this.collection
+        }));
 
-        /***********************************************************
-         * Public interface
-         ***********************************************************/
+        var FiltersView = app.bus.request('get-tweet-filters-view');
 
-        app.bus.reply('get-tweets', function() {
-            return tweets;
-        });
+        this.getRegion('filters').show(new FiltersView());
+    }
+});
 
-        app.bus.reply('get-tweets-view', function() {
-            return LayoutView;
-        });
+/***********************************************************
+ * Event handlers
+ ***********************************************************/
 
-    });
+app.bus.on('tweet', function(tweet) {
+    tweets.add(tweet);
+});
 
-})(window.app);
+/***********************************************************
+ * Public interface
+ ***********************************************************/
+
+app.bus.reply('get-tweets', function() {
+    return tweets;
+});
+
+app.bus.reply('get-tweets-view', function() {
+    return LayoutView;
+});
