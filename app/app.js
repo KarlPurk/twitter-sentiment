@@ -1,64 +1,61 @@
-/* global Backbone, Marionette */
-(function(global) {
-    "use strict";
+/* global require */
 
-    var app = new Marionette.Application();
+// Dependencies
+var _ = require('underscore');
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 
-    /***********************************************************
-     * System bus creation
-     ***********************************************************/
+var app = new Marionette.Application();
 
-    app.bus = _.extend({}, Backbone.Events);
-    app.bus = _.extend(app.bus, Backbone.Radio.Commands);
-    app.bus = _.extend(app.bus, Backbone.Radio.Requests);
+/***********************************************************
+ * System bus creation
+ ***********************************************************/
 
-    /***********************************************************
-     * System bus usage
-     ***********************************************************/
+app.bus = _.extend({}, Backbone.Events);
+app.bus = _.extend(app.bus, Backbone.Radio.Commands);
+app.bus = _.extend(app.bus, Backbone.Radio.Requests);
 
-    /**
-     * Gets a view object from a module
-     */
-    app.bus.reply('get-view', function (module, view) {
-        return app.bus.request('get-' + view + '-view');
+/***********************************************************
+ * System bus usage
+ ***********************************************************/
+
+/**
+ * Gets a view object from a module
+ */
+app.bus.reply('get-view', function (module, view) {
+    return app.bus.request('get-' + view + '-view');
+});
+
+/**
+ * Renders a view object from a module to the "main" region
+ */
+app.bus.comply('render-view', function (module, view, spec) {
+    var View = app.bus.request('get-view', module, view);
+    app.getRegion('main').show(new View(spec || {}));
+});
+
+/***********************************************************
+ * Event handlers
+ ***********************************************************/
+
+app.bus.on('search', function(query) {
+    var socket = io.connect('http://localhost');
+    socket.emit('filter', { track: query });
+    socket.on("tweet", function(tweet) {
+        app.bus.trigger('tweet', tweet);
     });
+});
 
-    /**
-     * Renders a view object from a module to the "main" region
-     */
-    app.bus.comply('render-view', function (module, view, spec) {
-        var View = app.bus.request('get-view', module, view);
-        app.getRegion('main').show(new View(spec || {}));
-    });
+/***********************************************************
+ * Application initializers
+ ***********************************************************/
 
-    /***********************************************************
-     * Event handlers
-     ***********************************************************/
+/**
+ * App initializers
+ */
 
-    app.bus.on('search', function(query) {
-        var socket = io.connect('http://localhost');
-        socket.emit('filter', { track: query });
-        socket.on("tweet", function(tweet) {
-            app.bus.trigger('tweet', tweet);
-        });
-    });
+app.addInitializer(function() {
+    app.addRegions({main: 'main'});
+});
 
-    /***********************************************************
-     * Application initializers
-     ***********************************************************/
-
-    /**
-     * App initializers
-     */
-
-    app.addInitializer(function() {
-        app.addRegions({main: 'main'});
-    });
-
-    /***********************************************************
-     * Global pollution
-     ***********************************************************/
-
-    global.app = app;
-
-})(window);
+module.exports = app;

@@ -4,3 +4,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 Backbone.Radio = require('backbone.radio');
+
+var app = require('./app');
+
+app.start();
