@@ -9,5 +9,6 @@ var app = require('./app');
 
 require('./modules/nav');
 require('./modules/dashboard');
+require('./modules/search');
 
 app.start();

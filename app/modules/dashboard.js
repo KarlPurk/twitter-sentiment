@@ -18,19 +18,19 @@ var DashboardView = Marionette.LayoutView.extend({
         tweets: '#tweets'
     },
     onShow: function() {
+        var SearchView = app.bus.request('get-view', 'search', 'search');
+        this.search.show(new SearchView());
         return;
         var SentimentsView = app.bus.request('get-view', 'sentiments', 'sentiments'),
             TweetsView = app.bus.request('get-view', 'tweets', 'tweets'),
-            GaugeView = app.bus.request('get-view', 'gauge', 'gauge'),
-            SearchView = app.bus.request('get-view', 'search', 'search');
-        this.sentiments.show(new SentimentsView());
+            GaugeView = app.bus.request('get-view', 'gauge', 'gauge');
         this.gauge.show(new GaugeView({
             collection: app.bus.request('get-sentiments')
         }));
+        this.sentiments.show(new SentimentsView());
         this.tweets.show(new TweetsView({
             collection: app.bus.request('get-filtered-tweets')
         }));
-        this.search.show(new SearchView());
     }
 });
 
