@@ -8,5 +8,6 @@ Backbone.Radio = require('backbone.radio');
 var app = require('./app');
 
 require('./modules/nav');
+require('./modules/dashboard');
 
 app.start();
