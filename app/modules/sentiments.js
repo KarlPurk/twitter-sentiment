@@ -1,80 +1,80 @@
-/* global app, Backbone, Marionette, $, _ */
-(function(app) {
-    "use strict";
+/* global require */
 
-    app.module('sentiments', function(sentimentsModule, app, Backbone, Marionette, $, _) {
+/***********************************************************
+ * Dependencies
+ ***********************************************************/
 
-        /***********************************************************
-         * Models
-         ***********************************************************/
+var app = require('./../app');
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 
-        var Sentiment = Backbone.Model.extend({
-            defaults: {
-                name: '',
-                count: 0
-            }
-        });
+/***********************************************************
+ * Models
+ ***********************************************************/
 
-        /***********************************************************
-         * Collections
-         ***********************************************************/
+var Sentiment = Backbone.Model.extend({
+    defaults: {
+        name: '',
+        count: 0
+    }
+});
 
-        var Sentiments = Backbone.Collection.extend({
-            model: Sentiment
-        });
+/***********************************************************
+ * Collections
+ ***********************************************************/
 
-        var sentiments = new Sentiments();
+var Sentiments = Backbone.Collection.extend({
+    model: Sentiment
+});
 
-        /***********************************************************
-         * Views
-         ***********************************************************/
-        
-        var SentimentView = Marionette.ItemView.extend({
-            tagName: 'tr',
-            template: '#sentiment-template',
-            modelEvents: {
-                'change:count': 'render'
-            }
-        });
+var sentiments = new Sentiments();
 
-        var SentimentsView = Marionette.CompositeView.extend({
-            className: 'white-box',
-            template: '#sentiments-template',
-            childView: SentimentView,
-            childViewContainer: 'tbody',
-            collection: sentiments
-        });
+/***********************************************************
+ * Views
+ ***********************************************************/
 
-        /***********************************************************
-         * Module initializers
-         ***********************************************************/
+var SentimentView = Marionette.ItemView.extend({
+    tagName: 'tr',
+    template: '#sentiment-template',
+    modelEvents: {
+        'change:count': 'render'
+    }
+});
 
-        this.addInitializer(function() {
-            app.bus.request('get-tweets').on('add', function(tweet) {
-                var total = sentiments.findWhere({name: tweet.getSentimentLabel()});
-                if (!total) {
-                    total = sentiments.add({
-                        name: tweet.getSentimentLabel(),
-                        count: 1
-                    });
-                    return;
-                }
-                total.set('count', total.get('count') + 1);
+var SentimentsView = Marionette.CompositeView.extend({
+    className: 'white-box',
+    template: '#sentiments-template',
+    childView: SentimentView,
+    childViewContainer: 'tbody',
+    collection: sentiments
+});
+
+/***********************************************************
+ * Initializers
+ ***********************************************************/
+
+app.addInitializer(function() {
+    app.bus.request('get-tweets').on('add', function(tweet) {
+        var total = sentiments.findWhere({name: tweet.getSentimentLabel()});
+        if (!total) {
+            total = sentiments.add({
+                name: tweet.getSentimentLabel(),
+                count: 1
             });
-        });
-
-        /***********************************************************
-         * Public interface
-         ***********************************************************/
-
-        app.bus.reply('get-sentiments-view', function() {
-            return SentimentsView;
-        });
-
-        app.bus.reply('get-sentiments', function() {
-            return sentiments;
-        });
-
+            return;
+        }
+        total.set('count', total.get('count') + 1);
     });
+});
 
-})(window.app);
+/***********************************************************
+ * Public interface
+ ***********************************************************/
+
+app.bus.reply('get-sentiments-view', function() {
+    return SentimentsView;
+});
+
+app.bus.reply('get-sentiments', function() {
+    return sentiments;
+});

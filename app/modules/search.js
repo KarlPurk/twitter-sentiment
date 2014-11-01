@@ -1,51 +1,50 @@
-/* global app, Backbone, Marionette, $, _ */
-(function(app) {
-    "use strict";
+/* global require */
 
-    app.module('search', function(searchModule, app, Backbone, Marionette, $, _) {
+/***********************************************************
+ * Dependencies
+ ***********************************************************/
 
-        /***********************************************************
-         * Views
-         ***********************************************************/
-        var SearchView = Marionette.ItemView.extend({
-            className: 'search-container  white-box',
-            template: '#search-template',
-            searchQuery: '',
-            ui: {
-                form: 'form',
-                query: 'input',
-                button: 'button',
-                message: 'p'
-            },
-            serializeData: function() {
-                return {
-                    query: this.searchQuery
-                };
-            },
-            events: {
-                'click @ui.button': 'onSearch'
-            },
-            onShow: function() {
-                this.ui.message.hide();
-            },
-            onSearch: function(event) {
-                event.preventDefault();
-                this.searchQuery = this.ui.query.val();
-                this.render();
-                this.ui.form.hide();
-                this.ui.message.show();
-                app.bus.trigger('search', this.searchQuery);
-            }
-        });
+var app = require('./../app');
+var Marionette = require('backbone.marionette');
 
-        /***********************************************************
-         * Public interface
-         ***********************************************************/
+/***********************************************************
+ * Views
+ ***********************************************************/
+var SearchView = Marionette.ItemView.extend({
+    className: 'search-container  white-box',
+    template: '#search-template',
+    searchQuery: '',
+    ui: {
+        form: 'form',
+        query: 'input',
+        button: 'button',
+        message: 'p'
+    },
+    serializeData: function() {
+        return {
+            query: this.searchQuery
+        };
+    },
+    events: {
+        'click @ui.button': 'onSearch'
+    },
+    onShow: function() {
+        this.ui.message.hide();
+    },
+    onSearch: function(event) {
+        event.preventDefault();
+        this.searchQuery = this.ui.query.val();
+        this.render();
+        this.ui.form.hide();
+        this.ui.message.show();
+        app.bus.trigger('search', this.searchQuery);
+    }
+});
 
-        app.bus.reply('get-search-view', function() {
-            return SearchView;
-        });
+/***********************************************************
+ * Public interface
+ ***********************************************************/
 
-    });
-
-})(window.app);
+app.bus.reply('get-search-view', function() {
+    return SearchView;
+});
