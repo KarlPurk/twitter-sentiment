@@ -13,5 +13,6 @@ require('./modules/search');
 require('./modules/sentiments');
 require('./modules/tweets');
 require('./modules/filters');
+require('./modules/gauge');
 
 app.start();
