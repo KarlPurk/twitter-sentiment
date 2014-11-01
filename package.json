@@ -5,6 +5,7 @@
     "backbone": "^1.1.2",
     "backbone.marionette": "^2.2.2",
     "backbone.radio": "^0.8.2",
+    "d3": "^3.4.13",
     "express": "^4.10.1",
     "jquery": "^2.1.1",
     "q": "^1.0.1",
@@ -17,7 +18,7 @@
     "chai": "~1.9.0"
   },
   "scripts": {
-    "test": "mocha specs/",
+    "test": "mocha",
     "start": "node server.js"
   }
 }

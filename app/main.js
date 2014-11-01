@@ -7,6 +7,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 Backbone.Radio = require('backbone.radio');
+var Marionette = require('backbone.marionette');
 
 /***********************************************************
  * Require app modules
