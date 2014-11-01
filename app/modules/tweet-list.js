@@ -58,7 +58,7 @@ var LayoutView = Marionette.LayoutView.extend({
             collection: this.collection
         }));
 
-        var FiltersView = app.bus.request('get-tweet-filters-view');
+        var FiltersView = app.bus.request('tweet-filters-view');
 
         this.getRegion('filters').show(new FiltersView());
     }
@@ -68,6 +68,6 @@ var LayoutView = Marionette.LayoutView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-tweet-list-view', function() {
+app.bus.reply('tweet-list-view', function() {
     return LayoutView;
 });

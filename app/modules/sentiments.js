@@ -54,7 +54,7 @@ var SentimentsView = Marionette.CompositeView.extend({
  ***********************************************************/
 
 app.addInitializer(function() {
-    app.bus.request('get-tweets').on('add', function(tweet) {
+    app.bus.request('tweets').on('add', function(tweet) {
         var total = sentiments.findWhere({name: tweet.getSentimentLabel()});
         if (!total) {
             total = sentiments.add({
@@ -71,10 +71,10 @@ app.addInitializer(function() {
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-sentiments-view', function() {
+app.bus.reply('sentiments-view', function() {
     return SentimentsView;
 });
 
-app.bus.reply('get-sentiments', function() {
+app.bus.reply('sentiments', function() {
     return sentiments;
 });

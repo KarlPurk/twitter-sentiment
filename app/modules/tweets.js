@@ -43,7 +43,7 @@ app.bus.on('tweet', function(tweet) {
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-tweets', function() {
+app.bus.reply('tweets', function() {
     return tweets;
 });
 

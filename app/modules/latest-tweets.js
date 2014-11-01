@@ -8,7 +8,7 @@ var app = require('./../app');
 var _= require('underscore');
 var Marionette = require('backbone.marionette');
 var TweetCollection = app.bus.request('tweets-collection');
-var tweets = app.bus.request('get-tweets');
+var tweets = app.bus.request('tweets');
 
 /***********************************************************
  * Collections
@@ -80,10 +80,10 @@ var LatestTweetsView = Marionette.CompositeView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-latest-tweets-view', function() {
+app.bus.reply('latest-tweets-view', function() {
     return LatestTweetsView;
 });
 
-app.bus.reply('get-latest-tweets', function() {
+app.bus.reply('latest-tweets', function() {
     return latestTweets;
 });

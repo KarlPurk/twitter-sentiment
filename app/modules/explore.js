@@ -20,7 +20,7 @@ var ExploreView = Marionette.LayoutView.extend({
     onShow: function() {
         var TweetsView = app.bus.request('get-view', 'tweet-list', 'tweet-list');
         this.tweets.show(new TweetsView({
-            collection: app.bus.request('get-filtered-tweets')
+            collection: app.bus.request('filtered-tweets')
         }));
     }
 });
@@ -29,6 +29,6 @@ var ExploreView = Marionette.LayoutView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-explore-view', function() {
+app.bus.reply('explore-view', function() {
     return ExploreView;
 });

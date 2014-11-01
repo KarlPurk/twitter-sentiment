@@ -29,10 +29,10 @@ var DashboardView = Marionette.LayoutView.extend({
         this.search.show(new SearchView());
         this.sentiments.show(new SentimentsView());
         this.tweets.show(new LatestTweetsView({
-            collection: app.bus.request('get-latest-tweets')
+            collection: app.bus.request('latest-tweets')
         }));
         this.gauge.show(new GaugeView({
-            collection: app.bus.request('get-sentiments')
+            collection: app.bus.request('sentiments')
         }));
     }
 });
@@ -41,6 +41,6 @@ var DashboardView = Marionette.LayoutView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-dashboard-view', function() {
+app.bus.reply('dashboard-view', function() {
     return DashboardView;
 });

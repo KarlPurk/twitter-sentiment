@@ -75,6 +75,6 @@ var GaugeView = Marionette.ItemView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-gauge-view', function() {
+app.bus.reply('gauge-view', function() {
     return GaugeView;
 });

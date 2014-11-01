@@ -45,6 +45,6 @@ var SearchView = Marionette.ItemView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-search-view', function() {
+app.bus.reply('search-view', function() {
     return SearchView;
 });

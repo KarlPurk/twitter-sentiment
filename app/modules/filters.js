@@ -7,8 +7,8 @@
 var app = require('./../app');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
-var tweets = app.bus.request('get-tweets');
-var sentiments = app.bus.request('get-sentiments');
+var tweets = app.bus.request('tweets');
+var sentiments = app.bus.request('sentiments');
 var TweetsCollection = app.bus.request('tweets-collection');
 
 /***********************************************************
@@ -128,10 +128,10 @@ sentiments.on('change:count', function(sentiment) {
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-filtered-tweets', function() {
+app.bus.reply('filtered-tweets', function() {
     return filteredTweets;
 });
 
-app.bus.reply('get-tweet-filters-view', function() {
+app.bus.reply('tweet-filters-view', function() {
     return FiltersView;
 });
