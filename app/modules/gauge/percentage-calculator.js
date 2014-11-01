@@ -29,7 +29,8 @@ module.exports = (function() {
         return count;
     };
 
-    var calculateGaugePercentage = function(total, score) {
+    var calculate = function(total, score) {
+        // TODO: remove dependency on d3 for this calculation
         return d3.scale.linear().domain([-total, total]).range([0, 100])(score);
     };
 
@@ -39,7 +40,7 @@ module.exports = (function() {
             return;
         }
         var score = getCount(sentiments);
-        return calculateGaugePercentage(total, score);
+        return calculate(total, score);
     };
 
 }());
