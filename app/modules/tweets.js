@@ -107,3 +107,7 @@ app.bus.reply('get-tweets', function() {
 app.bus.reply('get-tweets-view', function() {
     return LayoutView;
 });
+
+app.bus.reply('tweets-collection', function() {
+    return TweetsCollection;
+});

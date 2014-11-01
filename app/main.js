@@ -12,5 +12,6 @@ require('./modules/dashboard');
 require('./modules/search');
 require('./modules/sentiments');
 require('./modules/tweets');
+require('./modules/filters');
 
 app.start();
