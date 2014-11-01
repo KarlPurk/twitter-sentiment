@@ -1,5 +1,9 @@
 /* global require */
 
+/***********************************************************
+ * Dependencies
+ ***********************************************************/
+
 var app = require('./../app');
 var _ = require('underscore');
 var Backbone = require('backbone');

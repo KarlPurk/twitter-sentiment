@@ -1,9 +1,16 @@
 /* global require */
 
-// Dependencies
+/***********************************************************
+ * Dependencies
+ ***********************************************************/
+
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
+
+/***********************************************************
+ * App creation
+ ***********************************************************/
 
 var app = new Marionette.Application();
 

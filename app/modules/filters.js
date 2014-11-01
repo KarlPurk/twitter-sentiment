@@ -5,7 +5,6 @@
  ***********************************************************/
 
 var app = require('./../app');
-var _ = require('underscore');
 var Backbone = require('backbone');
 var Marionette = require('backbone.marionette');
 var tweets = app.bus.request('get-tweets');

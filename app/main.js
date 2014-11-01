@@ -1,9 +1,16 @@
 /* global require */
-var _ = require('underscore');
+
+/***********************************************************
+ * Configure dependencies
+ ***********************************************************/
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 Backbone.Radio = require('backbone.radio');
+
+/***********************************************************
+ * Require app modules
+ ***********************************************************/
 
 var app = require('./app');
 
@@ -15,5 +22,9 @@ require('./modules/tweets');
 require('./modules/filters');
 require('./modules/gauge');
 require('./modules/explore');
+
+/***********************************************************
+ * Start the app
+ ***********************************************************/
 
 app.start();
