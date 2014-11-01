@@ -23,6 +23,8 @@ require('./modules/tweets');
 require('./modules/filters');
 require('./modules/gauge');
 require('./modules/explore');
+require('./modules/tweet-list');
+require('./modules/latest-tweets');
 
 /***********************************************************
  * Start the app

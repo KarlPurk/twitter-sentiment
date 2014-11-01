@@ -1,4 +1,11 @@
 /***********************************************************
+ * Dependencies
+ ***********************************************************/
+
+var app = require('./../app');
+var Marionette = require('backbone.marionette');
+
+/***********************************************************
  * Views
  ***********************************************************/
 
@@ -61,6 +68,6 @@ var LayoutView = Marionette.LayoutView.extend({
  * Public interface
  ***********************************************************/
 
-app.bus.reply('get-tweets-view', function() {
+app.bus.reply('get-tweet-list-view', function() {
     return LayoutView;
 });
