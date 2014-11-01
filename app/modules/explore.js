@@ -1,37 +1,34 @@
-/* global app, Backbone, Marionette, $, _ */
-(function(app) {
-    "use strict";
+/* global require */
 
-    app.module('explore', function(exploreModule, app, Backbone, Marionette, $, _) {
+/***********************************************************
+ * Dependencies
+ ***********************************************************/
 
-        this.bus = _.extend({}, Backbone.Radio.Requests);
+var app = require('./../app');
+var Marionette = require('backbone.marionette');
 
-        /***********************************************************
-         * Views
-         ***********************************************************/
+/***********************************************************
+ * Views
+ ***********************************************************/
 
-        var ExploreView = Marionette.LayoutView.extend({
-            template: '#explore-template',
-            className: 'main-content transition-hide',
-            regions: {
-                tweets: '#tweets'
-            },
-            onShow: function() {
-                var TweetsView = app.bus.request('get-view', 'tweets', 'tweets');
-                this.tweets.show(new TweetsView({
-                    collection: app.bus.request('get-filtered-tweets')
-                }));
-            }
-        });
+var ExploreView = Marionette.LayoutView.extend({
+    template: '#explore-template',
+    className: 'main-content transition-hide',
+    regions: {
+        tweets: '#tweets'
+    },
+    onShow: function() {
+        var TweetsView = app.bus.request('get-view', 'tweets', 'tweets');
+        this.tweets.show(new TweetsView({
+            collection: app.bus.request('get-filtered-tweets')
+        }));
+    }
+});
 
-        /***********************************************************
-         * Public interface
-         ***********************************************************/
+/***********************************************************
+ * Public interface
+ ***********************************************************/
 
-        app.bus.reply('get-explore-view', function() {
-            return ExploreView;
-        });
-
-    });
-
-})(window.app);
+app.bus.reply('get-explore-view', function() {
+    return ExploreView;
+});

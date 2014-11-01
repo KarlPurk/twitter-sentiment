@@ -14,5 +14,6 @@ require('./modules/sentiments');
 require('./modules/tweets');
 require('./modules/filters');
 require('./modules/gauge');
+require('./modules/explore');
 
 app.start();
