@@ -29,43 +29,21 @@ tweets.on('add', function(tweet) {
 
 var TweetView = Marionette.ItemView.extend({
     tagName: 'div',
+    className: 'latest-tweet',
     template: "#latest-tweets-item-template",
     templateHelpers: {
         getSentimentClass: function() {
             if (this.sentiment.mixed) {
-                return 'label-warning';
+                return 'alert-warning';
             }
             else if (this.sentiment.type === 'positive') {
-                return 'label-success';
+                return 'alert-success';
             }
             else if (this.sentiment.type === 'negative') {
                 return 'label-danger';
             }
-            return 'label-info';
-        },
-        getSentimentLabel: function() {
-            if (this.sentiment.mixed) {
-                return 'mixed';
-            }
-            return this.sentiment.type;
+            return 'alert-info';
         }
-    },
-    classNameMap: {
-        positive: 'alert-success',
-        negative: 'alert-danger',
-        mixed: 'alert-warning',
-        neutral: 'alert-info'
-    },
-    attributes: function() {
-        return {
-            class: this.getClassName(this.model)
-        };
-    },
-    getClassName: function (model) {
-        var getClassNameBySentiment = function(model) {
-            return this.classNameMap[model.get('sentiment').type];
-        }.bind(this);
-        return ['alert', getClassNameBySentiment(model)].join(' ');
     }
 });
 

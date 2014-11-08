@@ -58,9 +58,15 @@
         <div class="latest-tweets"></div>
     </script>
     <script type="text/html" id="latest-tweets-item-template">
-        <div>
-            <p><%= text %></p>
-            <span><%= user.screen_name %></span>
+        <div class="latest-tweet__user">
+            <img class="latest-tweet__user__image" src="<%= user.profile_image_url %>" />
+        </div>
+        <div class="latest-tweet__text">
+            <p>
+                <span class="latest-tweet__text__sentiment  alert  <%= getSentimentClass() %>"></span>
+                <span class="latest-tweet__text__username"><%= user.screen_name %></span>
+                <%= text %>
+            </p>
         </div>
     </script>
     <script type="text/html" id="tweet-filters-template">
