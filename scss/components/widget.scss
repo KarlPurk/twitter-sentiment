@@ -1,0 +1,28 @@
+.widget {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 0.5em 0.5em 0 0;
+  position: relative;
+  padding: 3em 1em 1em;
+  margin: 2em;
+}
+
+.widget .title {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  font-weight: 700;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.widget .options {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-weight: 700;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

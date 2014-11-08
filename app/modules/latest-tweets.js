@@ -49,7 +49,7 @@ var TweetView = Marionette.ItemView.extend({
 
 var LatestTweetsView = Marionette.CompositeView.extend({
     template: '#latest-tweets-template',
-    className: 'main-content white-box',
+    className: 'main-content widget',
     childView: TweetView,
     childViewContainer: '.latest-tweets'
 });

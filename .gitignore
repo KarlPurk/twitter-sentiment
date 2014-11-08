@@ -2,3 +2,4 @@
 .vagrant/
 node_modules/
 lib/server/config.js
+dist/

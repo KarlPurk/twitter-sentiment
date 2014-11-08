@@ -11,7 +11,7 @@ var Marionette = require('backbone.marionette');
  * Views
  ***********************************************************/
 var SearchView = Marionette.ItemView.extend({
-    className: 'search-container  white-box',
+    className: 'search-container  widget',
     template: '#search-template',
     searchQuery: '',
     ui: {

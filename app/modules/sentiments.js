@@ -42,7 +42,7 @@ var SentimentView = Marionette.ItemView.extend({
 });
 
 var SentimentsView = Marionette.CompositeView.extend({
-    className: 'white-box',
+    className: 'widget',
     template: '#sentiments-template',
     childView: SentimentView,
     childViewContainer: 'tbody',

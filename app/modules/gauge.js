@@ -15,7 +15,7 @@ var gaugePercentageCalculator = require('./gauge/percentage-calculator');
 
 var GaugeView = Marionette.ItemView.extend({
     template: '#gauge-template',
-    className: 'gauge white-box',
+    className: 'gauge widget',
     chart: null,
     collection: null,
 

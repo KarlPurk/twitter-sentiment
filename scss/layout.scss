@@ -1,0 +1,10 @@
+.main-content {
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 0.25s ease;
+  -webkit-transition: opacity 0.25s ease;
+}
+
+.main-content.transition-hide {
+  opacity: 0;
+}
