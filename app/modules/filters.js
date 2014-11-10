@@ -75,7 +75,7 @@ var FilterView = Marionette.ItemView.extend({
             }
             return this.classNameMap[model.get('name')];
         }.bind(this);
-        return ['tweet-filter', 'label', getClassNameBySentiment(model)].join(' ');
+        return ['tweet-filter', 'label', model.get('name'), getClassNameBySentiment(model)].join(' ');
     },
     onClick: function() {
         this.model.set('active', !this.model.get('active'));

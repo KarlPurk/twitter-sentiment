@@ -12,6 +12,7 @@ var Marionette = require('backbone.marionette');
 var TweetView = Marionette.ItemView.extend({
     tagName: 'tr',
     template: "#tweet-template",
+    className: 'tweets__tweet',
     templateHelpers: {
         getSentimentClass: function() {
             if (this.sentiment.mixed) {
@@ -38,6 +39,7 @@ var TweetsView = Marionette.CompositeView.extend({
     template: "#tweets-template",
     childView: TweetView,
     childViewContainer: 'tbody',
+    className: 'tweets',
     collectionEvents: {
         'reset': 'onReset'
     },
@@ -50,8 +52,8 @@ var LayoutView = Marionette.LayoutView.extend({
     template: '#tweets-layout-template',
     className: 'main-content widget',
     regions: {
-        filters: '.options',
-        tweets: '.tweets'
+        filters: '.options-container',
+        tweets: '.tweets-container'
     },
     onShow: function() {
         this.getRegion('tweets').show(new TweetsView({
