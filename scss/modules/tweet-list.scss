@@ -3,5 +3,17 @@
   .label   {
     font-size: 1em;
   }
-  
+
+  .positive {
+    background-color: $color-positive;
+  }
+
+  .negative {
+    background-color: $color-negative;
+  }
+
+  .mixed {
+    background-color: $color-mixed;
+  }
+
 }

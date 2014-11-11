@@ -54,12 +54,6 @@ var FilterView = Marionette.ItemView.extend({
         }
         this.$el.show();
     },
-    classNameMap: {
-        positive: 'label-success',
-        negative: 'label-danger',
-        mixed: 'label-warning',
-        neutral: 'label-info'
-    },
     attributes: function() {
         return {
             class: this.getClassName(this.model)
@@ -71,9 +65,9 @@ var FilterView = Marionette.ItemView.extend({
     getClassName: function (model) {
         var getClassNameBySentiment = function(model) {
             if (model.get('active')) {
-                return 'label-default';
+                return 'disabled';
             }
-            return this.classNameMap[model.get('name')];
+            return model.get('name');
         }.bind(this);
         return ['tweet-filter', 'label', model.get('name'), getClassNameBySentiment(model)].join(' ');
     },

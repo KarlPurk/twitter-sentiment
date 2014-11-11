@@ -14,18 +14,6 @@ var TweetView = Marionette.ItemView.extend({
     template: "#tweet-template",
     className: 'tweets__tweet',
     templateHelpers: {
-        getSentimentClass: function() {
-            if (this.sentiment.mixed) {
-                return 'label-warning';
-            }
-            else if (this.sentiment.type === 'positive') {
-                return 'label-success';
-            }
-            else if (this.sentiment.type === 'negative') {
-                return 'label-danger';
-            }
-            return 'label-info';
-        },
         getSentimentLabel: function() {
             if (this.sentiment.mixed) {
                 return 'mixed';
