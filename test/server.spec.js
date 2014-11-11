@@ -15,7 +15,9 @@ describe("server", function() {
     it("should return a clean tweet object with a sentiment", function(done) {
         var client = ioClient.connect(socketURL, options),
             tweetReceived = false;
-
+        client.on('error', function(e) {
+            throw new Error(e);
+        });
         client.on('connect', function() {
             client.emit('filter', {track: 'javascript'});
         });
