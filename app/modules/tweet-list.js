@@ -50,7 +50,7 @@ var TweetsView = Marionette.CompositeView.extend({
 
 var LayoutView = Marionette.LayoutView.extend({
     template: '#tweets-layout-template',
-    className: 'main-content widget',
+    className: 'main-content  widget  widget__tweet-list',
     regions: {
         filters: '.options-container',
         tweets: '.tweets-container'
