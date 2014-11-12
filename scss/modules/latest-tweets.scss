@@ -23,6 +23,11 @@
 
 .latest-tweet__text {
   display: table-cell;
+
+  p {
+    color: #222;
+    padding: 1em;
+  }
 }
 
 .latest-tweet__text__sentiment {
@@ -32,13 +37,24 @@
   width: 1em;
   height: 1em;
   border-radius: 50%;
+
+  &.positive {
+    background-color: $color-positive;
+  }
+
+  &.negative {
+    background-color: $color-negative;
+  }
+
+  &.mixed {
+    background-color: $color-mixed;
+  }
+
+  &.neutral {
+    background-color: $color-neutral;
+  }
 }
 
 .latest-tweet__text__username {
   font-weight: bold;
-}
-
-.latest-tweet__text p {
-  color: #222;
-  padding: 1em;
 }

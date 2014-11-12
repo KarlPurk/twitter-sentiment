@@ -32,17 +32,11 @@ var TweetView = Marionette.ItemView.extend({
     className: 'latest-tweet',
     template: "#latest-tweets-item-template",
     templateHelpers: {
-        getSentimentClass: function() {
+        getSentiment: function() {
             if (this.sentiment.mixed) {
-                return 'alert-warning';
+                return 'mixed';
             }
-            else if (this.sentiment.type === 'positive') {
-                return 'alert-success';
-            }
-            else if (this.sentiment.type === 'negative') {
-                return 'label-danger';
-            }
-            return 'alert-info';
+            return this.sentiment.type;
         }
     }
 });
