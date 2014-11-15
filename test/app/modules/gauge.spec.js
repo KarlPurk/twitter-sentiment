@@ -1,17 +1,22 @@
 /* globals require, describe, it, beforeEach */
 
-var dependencies = require('./../bootstrap')('gauge');
+var dependencies = require('./../bootstrap');
 var app = dependencies.app;
 var Backbone = dependencies.backbone;
-var calculator = require('./../../../app/modules/gauge/percentage-calculator');
 
 describe('gauge module', function() {
+    before(function() {
+        require('./../module')('gauge');
+    });
     it('must expose a gauge view', function() {
         var view = app.bus.request('gauge-view');
         view.must.be(Backbone.View);
     });
     describe('percentage calculator', function() {
-        var collection;
+        var collection, calculator;
+        before(function() {
+            calculator = require('./../../../app/modules/gauge/percentage-calculator');
+        });
         beforeEach(function() {
             collection = new Backbone.Collection();
         });

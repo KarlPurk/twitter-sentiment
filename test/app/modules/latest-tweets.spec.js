@@ -1,6 +1,6 @@
 /* globals require, describe, it, beforeEach */
 
-var dependencies = require('./../dependencies');
+var dependencies = require('./../bootstrap');
 var app = dependencies.app;
 var Backbone = dependencies.backbone;
 
@@ -12,7 +12,7 @@ describe('latest-tweets module', function() {
         app.bus.reply('tweets', function() {
             return new Backbone.Collection();
         });
-        require('./../bootstrap')('latest-tweets');
+        require('./../module')('latest-tweets');
     });
     after(function() {
         app.bus.stopReplying('tweets-collection');
