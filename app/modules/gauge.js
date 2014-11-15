@@ -1,80 +1,85 @@
 /* global require */
 
-/***********************************************************
- * Dependencies
- ***********************************************************/
+module.exports = function(options) {
 
-var app = require('./../app');
-var Marionette = require('backbone.marionette');
-var gaugePercentageCalculator = require('./gauge/percentage-calculator');
+    /***********************************************************
+     * Dependencies
+     ***********************************************************/
 
-//noinspection JSUnusedGlobalSymbols
-/***********************************************************
- * Views
- ***********************************************************/
+    options = options || {};
+    var app = options.app || require('./../app');
+    var Marionette = options.marionette || require('backbone.marionette');
+    var percentageCalculator = options.percentageCalculator || require('./gauge/percentage-calculator');
 
-var GaugeView = Marionette.ItemView.extend({
-    template: '#gauge-template',
-    className: 'gauge widget',
-    chart: null,
-    collection: null,
+    //noinspection JSUnusedGlobalSymbols
+    /***********************************************************
+     * Views
+     ***********************************************************/
 
-    initialize: function() {
-        //noinspection JSUnresolvedFunction
-        this.listenTo(this.collection, 'add', this.updateGauge, this);
-        //noinspection JSUnresolvedFunction
-        this.listenTo(this.collection, 'change:count', this.updateGauge, this);
-    },
+    var GaugeView = Marionette.ItemView.extend({
+        template: '#gauge-template',
+        className: 'gauge widget',
+        chart: null,
+        collection: null,
 
-    onShow: function() {
-        this.addChart();
-        this.updateGauge();
-    },
+        initialize: function () {
+            //noinspection JSUnresolvedFunction
+            this.listenTo(this.collection, 'add', this.updateGauge, this);
+            //noinspection JSUnresolvedFunction
+            this.listenTo(this.collection, 'change:count', this.updateGauge, this);
+        },
 
-    addChart: function() {
-        //noinspection JSUnusedGlobalSymbols
-        this.chart = c3.generate({
-            data: {
+        onShow: function () {
+            this.addChart();
+            this.updateGauge();
+        },
+
+        addChart: function () {
+            //noinspection JSUnusedGlobalSymbols
+            this.chart = c3.generate({
+                data: {
+                    columns: [
+                        ['sentiment', 50]
+                    ],
+                    type: 'gauge'
+                },
+                gauge: {
+                    label: {
+                        format: function () {
+                            return '';
+                        },
+                        show: false
+                    }
+                },
+                color: {
+                    pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
+                    threshold: {
+                        values: [30, 60, 90, 100]
+                    }
+                }
+            });
+
+            // HACK: Find out how to deal with this properly
+            this.$el.find('svg').attr('height', '200px');
+        },
+
+        updateGauge: function () {
+            var percentage = percentageCalculator(this.collection);
+            percentage = percentage === undefined ? 50 : percentage;
+            this.chart.load({
                 columns: [
-                    ['sentiment', 50]
-                ],
-                type: 'gauge'
-            },
-            gauge: {
-                label: {
-                    format: function() {
-                        return '';
-                    },
-                    show: false
-                }
-            },
-            color: {
-                pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
-                threshold: {
-                    values: [30, 60, 90, 100]
-                }
-            }
-        });
+                    ['sentiment', percentage]
+                ]
+            });
+        }
+    });
 
-        // HACK: Find out how to deal with this properly
-        this.$el.find('svg').attr('height', '200px');
-    },
+    /***********************************************************
+     * Public interface
+     ***********************************************************/
 
-    updateGauge: function() {
-        var percentage = gaugePercentageCalculator(this.collection);
-        percentage = percentage === undefined ? 50 : percentage;
-        this.chart.load({
-            columns: [
-                ['sentiment', percentage]
-            ]
-        });
-    }
-});
+    app.bus.reply('gauge-view', function () {
+        return GaugeView;
+    });
 
-/***********************************************************
- * Public interface
- ***********************************************************/
-
-app.bus.reply('gauge-view', function() {
-    return GaugeView;
-});
+};

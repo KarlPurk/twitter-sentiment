@@ -21,7 +21,18 @@ var app = require('./../../app/app')(options);
 module.exports = function(moduleDependency) {
 
     var options = {
-        marionette: { LayoutView: { extend: function() { return Backbone.View; } } }
+        marionette: {
+            LayoutView: {
+                extend: function () {
+                    return Backbone.View;
+                }
+            },
+            ItemView: {
+                extend: function () {
+                    return Backbone.View;
+                }
+            }
+        }
     };
 
     // Load the module, injecting the stub dependency defined above
