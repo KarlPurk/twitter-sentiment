@@ -14,8 +14,7 @@ app.use(express.static(__dirname + '/'));
 server = require('http').createServer(app);
 
 // Attach socket.io to the http server
-io = require('socket.io').listen(server);
-io.set('log level', 1);
+io = require('socket.io').listen(server, {log: false});
 
 // Start the server
 server.listen(8080);
