@@ -14,6 +14,6 @@ var options = {
 };
 
 // Require the app, passing in the stub marionette object
-var app = require('./../../app/app')(options);
+var app = require('./../../../app/app')(options);
 
 module.exports = require('./dependencies');

@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var io = require('./../server');
+var io = require('./../../server');
 
 require('must');
 var ioClient = require('socket.io-client');

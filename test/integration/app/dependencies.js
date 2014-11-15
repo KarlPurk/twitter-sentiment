@@ -5,7 +5,7 @@
  * long relative paths.
  */
 module.exports = {
-    app: require('./../../app/app'),
+    app: require('./../../../app/app'),
     backbone: require('backbone'),
     underscore: require('underscore')
 };

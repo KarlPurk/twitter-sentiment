@@ -30,5 +30,5 @@ module.exports = function(moduleDependency) {
     };
 
     // Load the module, injecting the stub dependency defined above
-    require('./../../app/modules/' + moduleDependency)(options);
+    require('./../../../app/modules/' + moduleDependency)(options);
 };
