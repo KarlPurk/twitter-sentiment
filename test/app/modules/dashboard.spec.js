@@ -1,15 +1,8 @@
 /* globals require, describe, it, beforeEach */
 
-require('must');
-require('./../bootstrap');
-
-var Backbone = require('backbone');
-var app = require('./../../../app/app');
-var options = {
-    marionette: { LayoutView: { extend: function() { return Backbone.View; } } }
-};
-
-require('./../../../app/modules/dashboard')(options);
+var dependencies = require('./../bootstrap')('dashboard');
+var app = dependencies.app;
+var Backbone = dependencies.backbone;
 
 describe('dashboard module', function() {
     it('must add a dashboard-view reply listener to app.bus', function() {
