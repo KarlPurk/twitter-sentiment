@@ -1,34 +1,39 @@
 /* global require */
 
-/***********************************************************
- * Dependencies
- ***********************************************************/
+module.exports = function(options) {
 
-var app = require('./../app');
-var Marionette = require('backbone.marionette');
+    /***********************************************************
+     * Dependencies
+     ***********************************************************/
 
-/***********************************************************
- * Views
- ***********************************************************/
+    options = options || {};
+    var app = options.app || require('./../app');
+    var Marionette = options.marionette || require('backbone.marionette');
 
-var ExploreView = Marionette.LayoutView.extend({
-    template: '#explore-template',
-    className: 'main-content transition-hide',
-    regions: {
-        tweets: '#tweets'
-    },
-    onShow: function() {
-        var TweetsView = app.bus.request('get-view', 'tweet-list', 'tweet-list');
-        this.tweets.show(new TweetsView({
-            collection: app.bus.request('filtered-tweets')
-        }));
-    }
-});
+    /***********************************************************
+     * Views
+     ***********************************************************/
 
-/***********************************************************
- * Public interface
- ***********************************************************/
+    var ExploreView = Marionette.LayoutView.extend({
+        template: '#explore-template',
+        className: 'main-content transition-hide',
+        regions: {
+            tweets: '#tweets'
+        },
+        onShow: function () {
+            var TweetsView = app.bus.request('get-view', 'tweet-list', 'tweet-list');
+            this.tweets.show(new TweetsView({
+                collection: app.bus.request('filtered-tweets')
+            }));
+        }
+    });
 
-app.bus.reply('explore-view', function() {
-    return ExploreView;
-});
+    /***********************************************************
+     * Public interface
+     ***********************************************************/
+
+    app.bus.reply('explore-view', function () {
+        return ExploreView;
+    });
+
+};
