@@ -6,7 +6,7 @@ var Backbone = dependencies.backbone;
 var calculator = require('./../../../app/modules/gauge/percentage-calculator');
 
 describe('gauge module', function() {
-    it('must add a gauge-view reply listener to app.bus', function() {
+    it('must expose a gauge view', function() {
         var view = app.bus.request('gauge-view');
         view.must.be(Backbone.View);
     });

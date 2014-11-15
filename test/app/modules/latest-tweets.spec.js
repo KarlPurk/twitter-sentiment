@@ -18,11 +18,11 @@ describe('latest-tweets module', function() {
         app.bus.stopReplying('tweets-collection');
         app.bus.stopReplying('tweets');
     });
-    it('must add a latest-tweets-view reply listener to app.bus', function() {
+    it('must expose a latest tweets view', function() {
         var view = app.bus.request('latest-tweets-view');
         view.must.be(Backbone.View);
     });
-    it('must add a latest-tweets reply listener to app.bus', function() {
+    it('must expose a latest tweets collection', function() {
         var collection = app.bus.request('latest-tweets');
         collection.must.be.instanceOf(Backbone.Collection);
     });
