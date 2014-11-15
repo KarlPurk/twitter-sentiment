@@ -13,10 +13,10 @@ var Marionette = require('backbone.marionette');
  * Require app modules
  ***********************************************************/
 
-var app = require('./app');
+var app = require('./app')();
 
 require('./modules/nav');
-require('./modules/dashboard');
+require('./modules/dashboard')();
 require('./modules/search');
 require('./modules/sentiments');
 require('./modules/tweets');
