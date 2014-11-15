@@ -20,30 +20,22 @@ var app = require('./../../app/app')(options);
 // The module is then loaded, passing in a stub marionette object.
 module.exports = function(moduleDependency) {
 
+    var viewStub = {
+        extend: function () {
+            return Backbone.View;
+        }
+    };
+
     var options = {
         marionette: {
-            LayoutView: {
-                extend: function () {
-                    return Backbone.View;
-                }
-            },
-            ItemView: {
-                extend: function () {
-                    return Backbone.View;
-                }
-            }
+            LayoutView: viewStub,
+            ItemView: viewStub,
+            CompositeView: viewStub
         }
     };
 
     // Load the module, injecting the stub dependency defined above
     require('./../../app/modules/' + moduleDependency)(options);
 
-    // Return a hash of dependencies for easy reference in tests
-    // This simply avoids having to require these common dependencies
-    // in each test which results in cleaner tests that avoid stupidly
-    // long relative paths.
-    return {
-        app: app,
-        backbone: Backbone
-    };
+    return require('./dependencies');
 };
