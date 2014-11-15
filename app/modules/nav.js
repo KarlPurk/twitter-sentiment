@@ -145,6 +145,5 @@ module.exports = function(options) {
 
     app.addInitializer(function () {
         app.getRegion('nav').currentView.dashboardButtonClicked();
-    })
-    ;
+    });
 };
