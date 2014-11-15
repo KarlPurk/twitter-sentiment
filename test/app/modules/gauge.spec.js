@@ -8,7 +8,7 @@ var calculator = require('./../../../app/modules/gauge/percentage-calculator');
 describe('gauge module', function() {
     it('must add a gauge-view reply listener to app.bus', function() {
         var view = app.bus.request('gauge-view');
-        view.must.not.instanceOf(Backbone.View);
+        view.must.be(Backbone.View);
     });
     describe('percentage calculator', function() {
         var collection;
