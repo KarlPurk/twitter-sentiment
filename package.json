@@ -22,7 +22,9 @@
     "must": "^0.12.0",
     "nightwatch": "^0.5.33",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "alchemy-api": "^1.0.2",
+    "underscore": "^1.7.0"
   },
   "scripts": {
     "test": "mocha && nightwatch",
